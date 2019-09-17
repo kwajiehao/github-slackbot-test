@@ -5,6 +5,8 @@ import slack
 import threading
 
 app = Flask(__name__)
+
+# select the bot's oauth access token to post as the bot
 slack_token = os.environ["BOT_SLACK_OAUTH_ACCESS"]
 client = slack.WebClient(token=slack_token)
 
@@ -14,6 +16,10 @@ PORT = 4390
 @app.route('/')
 def homepage():
     return "Howdy hacker!"
+
+@app.route('/verify')
+def verification():
+    return request.form.get['challenge']
 
 
 @app.route('/github-manager-test', methods=['POST'])
