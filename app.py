@@ -10,5 +10,11 @@ def homepage():
     return "Howdy hacker!"
 
 
+@app.route('/github-manager-test', methods=['POST'])
+def scheduleme():
+    return "It's time to run some tests"
+
+
+
 if __name__ == '__main__':
     app.run(debug=True, port=PORT)
