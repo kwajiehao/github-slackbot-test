@@ -5,7 +5,7 @@ import slack
 import threading
 
 app = Flask(__name__)
-slack_token = os.environ["SLACK_OAUTH_ACCESS"]
+slack_token = os.environ["BOT_SLACK_OAUTH_ACCESS"]
 client = slack.WebClient(token=slack_token)
 
 PORT = 4390
