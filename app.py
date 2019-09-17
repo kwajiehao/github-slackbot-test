@@ -19,7 +19,7 @@ def homepage():
 
 @app.route('/verify')
 def verification():
-    return request.form.get['challenge']
+    return request.form['challenge']
 
 
 @app.route('/github-manager-test', methods=['POST'])
