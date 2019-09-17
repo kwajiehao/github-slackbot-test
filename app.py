@@ -46,8 +46,10 @@ def removeUser():
             target=removeUserAction,
             args=(slack_request,)
         )
+
     x.start()
-    return 
+    
+    return "Your mom"
 
     
 def removeUserAction(slack_request):
@@ -57,7 +59,6 @@ def removeUserAction(slack_request):
     client.chat_postMessage(
         channel=channel_id,
         text="Hello from your app! :tada:")
-
 
 
 if __name__ == '__main__':
