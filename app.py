@@ -1,8 +1,12 @@
 from flask import Flask, request
 import re
 import os
+import slack
+import threading2
 
 app = Flask(__name__)
+slack_token = os.environ["SLACK_OAUTH_ACCESS"]
+client = slack.WebClient(token=slack_token)
 
 PORT = 4390
 
@@ -32,9 +36,27 @@ def addUser():
     
     return "Added users " + ', '.join(raw_text) + 'to the Isomer organization'
     
+@app.route('/remove-user', methods=['POST'])
+def removeUser():    
+    # get the full request from Slack
+    slack_request = request.form
+
+    # starting a new thread for doing the actual processing    
+    x = threading2.Thread(
+            target=removeUserAction,
+            args=(slack_request,)
+        )
+    x.start()
+    return 
+
     
-        
-    
+def removeUserAction(slack_request):
+    # test using the slack client's methods
+    channel_id =  slack_request['channel_id']
+
+    client.chat_postMessage(
+        channel=channel_id,
+        text="Hello from your app! :tada:")
 
 
 
