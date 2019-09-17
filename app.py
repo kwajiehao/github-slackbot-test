@@ -2,7 +2,7 @@ from flask import Flask, request
 import re
 import os
 import slack
-import threading2
+import threading
 
 app = Flask(__name__)
 slack_token = os.environ["SLACK_OAUTH_ACCESS"]
@@ -42,7 +42,7 @@ def removeUser():
     slack_request = request.form
 
     # starting a new thread for doing the actual processing    
-    x = threading2.Thread(
+    x = threading.Thread(
             target=removeUserAction,
             args=(slack_request,)
         )
