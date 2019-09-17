@@ -13,7 +13,7 @@ def homepage():
 
 @app.route('/github-manager-test', methods=['POST'])
 def scheduleme():
-    return "It's time to run some tests"
+    return os.environ["DARK_SKY_API"]
 
 @app.route('/add-user', methods=['POST'])
 def addUser():
