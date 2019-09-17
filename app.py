@@ -29,7 +29,7 @@ def addUser():
     for user in raw_text:
         print(user)
     
-    return "Added users " + ', '.join(raw_text)
+    return "Added users " + ', '.join(raw_text) + 'to the Isomer organization'
     
     
         
