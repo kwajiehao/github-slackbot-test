@@ -131,7 +131,7 @@ def removeUserAction(slack_request):
                         "text": {
                             "type": "plain_text",
                             "text": "Yes",
-                            "emoji": "true"
+                            "emoji": True
                         }
                     },
                     {
@@ -139,7 +139,7 @@ def removeUserAction(slack_request):
                         "text": {
                             "type": "plain_text",
                             "text": "No",
-                            "emoji": "true"
+                            "emoji": True
                         }
                     }
                 ]
