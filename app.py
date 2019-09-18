@@ -174,5 +174,10 @@ def removeUserAction(slack_request):
         ])
 
 
+@app.route('/interaction', methods=['POST'])
+def interactionTest():
+    print(request.get_json())
+    return 'test'
+
 if __name__ == '__main__':
     app.run(debug=True, port=PORT)
