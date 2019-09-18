@@ -144,9 +144,6 @@ def removeUserAction(slack_request):
                 "text": {
                     "type": "mrkdwn",
                     "text": "Chew choo! @scott started a train to Deli Board at 11:30. Will you join?"
-                }, 
-                "attachments": {
-                    "callback_id": "github-manager-test"
                 }
             },
             {
