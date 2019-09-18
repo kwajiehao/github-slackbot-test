@@ -71,8 +71,8 @@ def removeUser():
         )
 
     x.start()
-    
-    return "HTTP 200 OK Content-type: text/plain" 
+
+    return  
 
     
 def removeUserAction(slack_request):
