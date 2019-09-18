@@ -180,7 +180,7 @@ def interactionTest():
     # check the request components
     slack_request = request.form
     print(request.headers)
-    # print(slack_request)
+    print(slack_request)
 
     #x = threading.Thread(
     #        target=removeUserAction,
@@ -189,7 +189,7 @@ def interactionTest():
     #x.start()
     return 'test'
 
-def removeUserAction(slack_request):
+def removeUserAction2(slack_request):
     try:
         payload = slack_request.get('payload')
         responseUrl = payload['response_url']
@@ -210,7 +210,7 @@ def removeUserAction(slack_request):
             r = requests.post(responseUrl, json=payload)
             print('response from server:',r.text)
     except:
-            print('there is an error')
+        print('there is an error')
 
 if __name__ == '__main__':
     app.run(debug=True, port=PORT)
