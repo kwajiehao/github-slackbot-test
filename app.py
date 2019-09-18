@@ -39,7 +39,7 @@ def verification():
     #return "HTTP 200 OK Content-type: text/plain " + payload['challenge']
 
     # get the full request from Slack
-    slack_request = request.form
+    slack_request = request.get_json()
 
     # starting a new thread for doing the actual processing 
     # because slack requires a response within 3000ms   
@@ -55,7 +55,7 @@ def verification():
     
 def test(slack_request):
     # test using the slack client's methods
-    channel_id =  slack_request['channel_id']
+    channel_id =  slack_request['event']['channel']
 
     client.chat_postMessage(
         channel=channel_id,
