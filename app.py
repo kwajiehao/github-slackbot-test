@@ -209,7 +209,7 @@ def removeUserAction(slack_request):
                 }
             r = requests.post(responseUrl, json=payload)
             print('response from server:',r.text)
-        except:
+    except:
             print('there is an error')
 
 if __name__ == '__main__':
