@@ -2,7 +2,7 @@ from flask import Flask, request
 import re
 import os
 import sys
-import ast
+import json
 import time
 import slack
 import requests
@@ -191,7 +191,7 @@ def interactionTest():
     return 'test'
 
 def removeUserAction2(slack_request):
-    payload = ast.literal_eval(slack_request['payload'])
+    payload = json.loads(slack_request['payload'])
     print(payload)
     responseUrl = payload['response_url']
     actionValue = payload['actions']['value']
