@@ -58,10 +58,9 @@ def verification():
 def test(slack_request):
     # test using the slack client's methods
     channel_id =  slack_request['event']['channel']
-    username = slack_request['event']['username']
 
-
-    if username != 'github-manager-test':
+    # ensure the bot doesn't respond to itself
+    if not slack_request['event']['bot_id']:
         client.chat_postMessage(
             channel=channel_id,
             text="Hello from your app! :tada:")
