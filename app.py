@@ -182,11 +182,11 @@ def interactionTest():
     print(request.headers)
     print(slack_request)
 
-    #x = threading.Thread(
-    #        target=removeUserAction,
-    #        args=(slack_request, )
-    #    )
-    #x.start()
+    x = threading.Thread(
+            target=removeUserAction2,
+            args=(slack_request, )
+        )
+    x.start()
     return 'test'
 
 def removeUserAction2(slack_request):
