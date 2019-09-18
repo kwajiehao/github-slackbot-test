@@ -51,6 +51,7 @@ def verification():
     # x.start()
 
     print("We are processing your request...")
+    print(slack_request)
 
     return 
 
