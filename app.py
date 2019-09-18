@@ -140,29 +140,38 @@ def removeUserAction(slack_request):
         channel=channel_id,
         blocks=[
             {
-                "text": "Response to slash command",
-                "attachments": [
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "Chew choo! @scott started a train to Deli Board at 11:30. Will you join?"
+                }, 
+                "attachments": {
+                    "callback_id": "github-manager-test"
+                }
+            },
+            {
+                "type": "actions",
+                "elements": [
                     {
-                        "text": "Would you like to remove the user from the organization?"
+                        "type": "button",
+                        "text": {
+                            "type": "plain_text",
+                            "text": "Yes",
+                            "emoji": True
+                        },
+                        "action_id": 'option-yes',
+                        "value": 'yes'
                     },
                     {
-                        "callback_id": "github-manager-test",
-                        "actions": [
-                            {
-                                "name": "option",
-                                "text": "Yes",
-                                "type": "button",
-                                "value": "yes"
-                            },
-                            {
-                                "name": "option",
-                                "text": "No",
-                                "type": "button",
-                                "value": "no"
-                            }
-                        ]
+                        "type": "button",
+                        "text": {
+                            "type": "plain_text",
+                            "text": "No",
+                            "emoji": True
+                        },
+                        "action_id": 'option-yes',
+                        "value": 'no'
                     }
-
                 ]
             }
         ])
