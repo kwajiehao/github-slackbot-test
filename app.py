@@ -32,7 +32,7 @@ def homepage():
 def verification():
     print(request.headers)
     sys.stdout.flush()
-    return request.body()
+    return request.get_json()
 
 
 @app.route('/github-manager-test', methods=['POST'])
