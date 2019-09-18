@@ -166,7 +166,7 @@ def removeUserAction(slack_request):
                             "text": "No",
                             "emoji": True
                         },
-                        "action_id": 'option-yes',
+                        "action_id": 'option-no',
                         "value": 'no'
                     }
                 ]
