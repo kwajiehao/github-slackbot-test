@@ -178,6 +178,7 @@ def removeUserAction(slack_request):
 def interactionTest():
     slack_request = request
     print(slack_request.headers)
+    print(slack_request.form)
     return 'test'
 
 if __name__ == '__main__':
