@@ -209,8 +209,8 @@ def removeUserAction2(slack_request):
                 }
             r = requests.post(responseUrl, json=payload)
             print('response from server:',r.text)
-    except:
-        print('there is an error')
+    except Exception as ex:
+        print(ex)
 
 if __name__ == '__main__':
     app.run(debug=True, port=PORT)
