@@ -33,7 +33,7 @@ def verification():
     print(request.headers)
     print(request.get_json())
     # sys.stdout.flush()
-    return "HTTP 200 OK Content-type: text/plain " + request.get_json['challenge']
+    return "HTTP 200 OK Content-type: text/plain " + request.get_json.get('challenge')
 
 
 @app.route('/github-manager-test', methods=['POST'])
