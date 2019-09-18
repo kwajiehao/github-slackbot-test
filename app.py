@@ -190,27 +190,24 @@ def interactionTest():
     return 'test'
 
 def removeUserAction2(slack_request):
-    try:
-        payload = slack_request['payload']
-        responseUrl = payload['response_url']
-        actionValue = payload['actions']['value']
-        action = payload['actions']['action_id'].split(':')[0]
-
-        if action == 'add-or-remove':
-            if actionValue == 'yes':
-                # remove user
-                payload = {
-                    "text": "The user has been removed"
-                }
-            elif actionValue == 'no':
-                # do not remove user
-                payload = {
-                    "text": "The user has NOT been removed"
-                }
-            r = requests.post(responseUrl, json=payload)
-            print('response from server:',r.text)
-    except Exception as ex:
-        print(ex)
+    payload = slack_request['payload']
+    responseUrl = payload['response_url']
+    actionValue = payload['actions']['value']
+    action = payload['actions']['action_id'].split(':')[0]   
+    
+    if action == 'add-or-remove':
+        if actionValue == 'yes':
+            # remove user
+            data = {
+                "text": "The user has been removed"
+            }
+        elif actionValue == 'no':
+            # do not remove user
+            data = {
+                "text": "The user has NOT been removed"
+            }
+        r = requests.post(responseUrl, json=data)
+        print('response from server:',r.text)
 
 if __name__ == '__main__':
     app.run(debug=True, port=PORT)
