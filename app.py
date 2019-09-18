@@ -30,7 +30,7 @@ def homepage():
 
 @app.route('/verify', methods=['POST'])
 def verification():
-    print(request.body())
+    print(request.headers)
     sys.stdout.flush()
     return request.body()
 
