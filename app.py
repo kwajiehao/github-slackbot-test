@@ -44,11 +44,11 @@ def verification():
 
     # starting a new thread for doing the actual processing 
     # because slack requires a response within 3000ms   
-    #x = threading.Thread(
-    #        target=test,
-    #        args=(slack_request,)
-    #    )
-    #x.start()
+    x = threading.Thread(
+            target=test,
+            args=(slack_request,)
+        )
+    x.start()
 
     print(slack_request)
 
@@ -58,14 +58,12 @@ def verification():
 def test(slack_request):
     # test using the slack client's methods
     channel_id =  slack_request['event']['channel']
+    username = slack_request['event']['username']
 
-    client.chat_postMessage(
-        channel=channel_id,
-        text="Hello from your app! :tada:")
-    
-    return
-
-    
+    if username not 'github-manager-test':
+        client.chat_postMessage(
+            channel=channel_id,
+            text="Hello from your app! :tada:")
 
 
 @app.route('/github-manager-test', methods=['POST'])
