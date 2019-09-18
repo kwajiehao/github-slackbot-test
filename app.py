@@ -50,6 +50,12 @@ def verification():
         )
     x.start()
 
+    y = threading.Thread(
+            target=responseToUser,
+            args=(slack_request,)
+        )
+    y.start()
+
     print(slack_request)
 
     return "We are processing your request..."
@@ -67,7 +73,24 @@ def test(slack_request):
             channel=channel_id,
             text="Hello from your app! :tada:")
 
+
+def responseToUser(slack_request):
+    try:
+        callback_id = slack_request['callback_id']
         
+        if callback_id === 'github-manager-test':
+            if slack_request['actions']['value'] == 'yes':
+                client.chat_postMessage(
+                    channel=channel_id,
+                    text="We have added the user to your organization"
+                )
+            elif slack_request['actions']['value'] == 'no':
+                client.chat_postMessage(
+                    channel=channel_id,
+                    text="We have not added the user to your organization"
+                )
+    except e as error:
+        print(e)
 
 
 @app.route('/github-manager-test', methods=['POST'])
@@ -101,7 +124,7 @@ def removeUser():
     # because slack requires a response within 3000ms   
     x = threading.Thread(
             target=removeUserAction,
-            args=(slack_request,)
+            args=(slack_request, )
         )
 
     x.start()
@@ -121,6 +144,9 @@ def removeUserAction(slack_request):
                 "text": {
                     "type": "mrkdwn",
                     "text": "Chew choo! @scott started a train to Deli Board at 11:30. Will you join?"
+                }, 
+                "attachments": {
+                    "callback_id": "github-manager-test"
                 }
             },
             {
@@ -132,7 +158,9 @@ def removeUserAction(slack_request):
                             "type": "plain_text",
                             "text": "Yes",
                             "emoji": True
-                        }
+                        },
+                        "name": 'option',
+                        "value": 'yes'
                     },
                     {
                         "type": "button",
@@ -140,7 +168,9 @@ def removeUserAction(slack_request):
                             "type": "plain_text",
                             "text": "No",
                             "emoji": True
-                        }
+                        },
+                        "name": 'option',
+                        "value": 'no'
                     }
                 ]
             }
