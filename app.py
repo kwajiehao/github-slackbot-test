@@ -31,8 +31,9 @@ def homepage():
 @app.route('/verify', methods=['POST'])
 def verification():
     print(request.headers)
-    sys.stdout.flush()
-    return request.get_json()
+    print(request.get_json())
+    # sys.stdout.flush()
+    return "Complete"
 
 
 @app.route('/github-manager-test', methods=['POST'])
