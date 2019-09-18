@@ -32,8 +32,10 @@ def homepage():
 def verification():
     print(request.headers)
     print(request.get_json())
-    # sys.stdout.flush()
-    return "HTTP 200 OK Content-type: text/plain " + request.get_json.get('challenge')
+
+    payload = request.get_json()
+
+    return "HTTP 200 OK Content-type: text/plain " + payload['challenge']
 
 
 @app.route('/github-manager-test', methods=['POST'])
