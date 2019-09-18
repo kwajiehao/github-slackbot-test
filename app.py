@@ -52,9 +52,7 @@ def verification():
 
     print("We are processing your request...")
 
-    client.chat_postMessage(
-        channel=channel_id,
-        text="Hello this is your bot!")
+    return 
 
     
 def test(slack_request):
