@@ -74,6 +74,8 @@ def test(slack_request):
     #    client.chat_postMessage(
     #        channel=channel_id,
     #        text="Hello from your app! :tada:")
+    except:
+        print('there is an error')
 
 
 def responseToUser(slack_request):
