@@ -67,6 +67,8 @@ def test(slack_request):
             channel=channel_id,
             text="Hello from your app! :tada:")
 
+        
+
 
 @app.route('/github-manager-test', methods=['POST'])
 def scheduleme():
@@ -87,6 +89,7 @@ def addUser():
         print(user)
     
     return "Added users " + ', '.join(raw_text) + 'to the Isomer organization'
+
     
 @app.route('/remove-user', methods=['POST'])
 def removeUser():    
@@ -111,7 +114,36 @@ def removeUserAction(slack_request):
 
     client.chat_postMessage(
         channel=channel_id,
-        text="Hello from your app! :tada:")
+        blocks=[
+            {
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": "Chew choo! @scott started a train to Deli Board at 11:30. Will you join?"
+                }
+            },
+            {
+                "type": "actions",
+                "elements": [
+                    {
+                        "type": "button",
+                        "text": {
+                            "type": "plain_text",
+                            "text": "Yes",
+                            "emoji": true
+                        }
+                    },
+                    {
+                        "type": "button",
+                        "text": {
+                            "type": "plain_text",
+                            "text": "No",
+                            "emoji": true
+                        }
+                    }
+                ]
+            }
+        ])
 
 
 if __name__ == '__main__':
