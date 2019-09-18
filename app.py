@@ -77,8 +77,7 @@ def test(slack_request):
 def responseToUser(slack_request):
     try:
         callback_id = slack_request['callback_id']
-        
-        if callback_id === 'github-manager-test':
+        if callback_id == 'github-manager-test':
             if slack_request['actions']['value'] == 'yes':
                 client.chat_postMessage(
                     channel=channel_id,
@@ -89,8 +88,9 @@ def responseToUser(slack_request):
                     channel=channel_id,
                     text="We have not added the user to your organization"
                 )
-    except e as error:
-        print(e)
+
+    except:
+        print("there is an error")
 
 
 @app.route('/github-manager-test', methods=['POST'])
