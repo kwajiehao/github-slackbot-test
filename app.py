@@ -178,7 +178,7 @@ def removeUserAction(slack_request):
 @app.route('/interaction', methods=['POST'])
 def interactionTest():
     # check the request components
-    slack_request = request.form
+    slack_request = request.form.to_dict()
     print(request.headers)
     print(slack_request)
 
