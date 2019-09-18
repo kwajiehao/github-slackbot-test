@@ -40,15 +40,15 @@ def verification():
 
     # get the full request from Slack
     slack_request = request.get_json()
+    channel_id =  slack_request['event']['channel']
 
     # starting a new thread for doing the actual processing 
     # because slack requires a response within 3000ms   
-    x = threading.Thread(
-            target=test,
-            args=(slack_request,)
-        )
-
-    x.start()
+    # x = threading.Thread(
+    #         target=test,
+    #         args=(slack_request,)
+    #     )
+    # x.start()
 
     return "We are processing your request..."
 
