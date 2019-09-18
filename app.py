@@ -191,7 +191,7 @@ def interactionTest():
 
 def removeUserAction2(slack_request):
     try:
-        payload = slack_request.get('payload')
+        payload = slack_request['payload']
         responseUrl = payload['response_url']
         actionValue = payload['actions']['value']
         action = payload['actions']['action_id'].split(':')[0]
