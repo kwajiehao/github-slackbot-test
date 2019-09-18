@@ -60,7 +60,8 @@ def test(slack_request):
     channel_id =  slack_request['event']['channel']
     username = slack_request['event']['username']
 
-    if username not 'github-manager-test':
+
+    if username != 'github-manager-test':
         client.chat_postMessage(
             channel=channel_id,
             text="Hello from your app! :tada:")
