@@ -145,33 +145,25 @@ def removeUserAction(slack_request):
                     "type": "mrkdwn",
                     "text": "Chew choo! @scott started a train to Deli Board at 11:30. Will you join?"
                 }, 
-                "attachments": {
-                    "callback_id": "github-manager-test"
-                }
-            },
-            {
-                "type": "actions",
-                "elements": [
+                "attachments": [
                     {
-                        "type": "button",
-                        "text": {
-                            "type": "plain_text",
-                            "text": "Yes",
-                            "emoji": True
-                        },
-                        "name": 'option',
-                        "value": 'yes'
-                    },
-                    {
-                        "type": "button",
-                        "text": {
-                            "type": "plain_text",
-                            "text": "No",
-                            "emoji": True
-                        },
-                        "name": 'option',
-                        "value": 'no'
+                        "callback_id": "github-manager-test",
+                        "actions": [
+                            {
+                                "name": "option",
+                                "text": "Yes",
+                                "type": "button",
+                                "value": "yes"
+                            },
+                            {
+                                "name": "option",
+                                "text": "No",
+                                "type": "button",
+                                "value": "no"
+                            }
+                        ]
                     }
+
                 ]
             }
         ])
