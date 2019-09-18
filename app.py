@@ -60,7 +60,9 @@ def test(slack_request):
     channel_id =  slack_request['event']['channel']
 
     # ensure the bot doesn't respond to itself
-    if not slack_request['event']['bot_id']:
+    try:
+        print(slack_request['event']['bot_id'])
+    except KeyError:
         client.chat_postMessage(
             channel=channel_id,
             text="Hello from your app! :tada:")
