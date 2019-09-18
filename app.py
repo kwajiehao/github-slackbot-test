@@ -194,8 +194,8 @@ def removeUserAction2(slack_request):
     payload = json.loads(slack_request['payload'])
     print(payload)
     responseUrl = payload['response_url']
-    actionValue = payload['actions']['value']
-    action = payload['actions']['action_id'].split(':')[0]   
+    actionValue = payload['actions'][0]['value']
+    action = payload['actions'][0]['action_id'].split(':')[0]   
     
     if action == 'add-or-remove':
         if actionValue == 'yes':
@@ -213,3 +213,4 @@ def removeUserAction2(slack_request):
 
 if __name__ == '__main__':
     app.run(debug=True, port=PORT)
+
