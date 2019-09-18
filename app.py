@@ -30,13 +30,36 @@ def homepage():
 
 @app.route('/verify', methods=['POST'])
 def verification():
-    print(request.headers)
-    print(request.get_json())
+    
+    # Used for verification
+    #print(request.headers)
+    #print(request.get_json())
+    #payload = request.get_json()
+    ## return "HTTP 200 OK Content-type: application/json " + '{"challenge":"' + payload['challenge'] + '"}'
+    #return "HTTP 200 OK Content-type: text/plain " + payload['challenge']
 
-    payload = request.get_json()
+    # get the full request from Slack
+    slack_request = request.form
 
-    # return "HTTP 200 OK Content-type: application/json " + '{"challenge":"' + payload['challenge'] + '"}'
-    return "HTTP 200 OK Content-type: text/plain " + payload['challenge']
+    # starting a new thread for doing the actual processing 
+    # because slack requires a response within 3000ms   
+    x = threading.Thread(
+            target=test,
+            args=(slack_request,)
+        )
+
+    x.start()
+
+    return "We are processing your request..."
+
+    
+def test(slack_request):
+    # test using the slack client's methods
+    channel_id =  slack_request['channel_id']
+
+    client.chat_postMessage(
+        channel=channel_id,
+        text="Hello from your app! :tada:")
 
 
 @app.route('/github-manager-test', methods=['POST'])
@@ -64,7 +87,8 @@ def removeUser():
     # get the full request from Slack
     slack_request = request.form
 
-    # starting a new thread for doing the actual processing    
+    # starting a new thread for doing the actual processing 
+    # because slack requires a response within 3000ms   
     x = threading.Thread(
             target=removeUserAction,
             args=(slack_request,)
@@ -72,7 +96,7 @@ def removeUser():
 
     x.start()
 
-    return  
+    return 
 
     
 def removeUserAction(slack_request):
