@@ -95,6 +95,7 @@ def addUser():
 def removeUser():    
     # get the full request from Slack
     slack_request = request.form
+    print(request.form)
 
     # starting a new thread for doing the actual processing 
     # because slack requires a response within 3000ms   
