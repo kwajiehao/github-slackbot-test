@@ -105,7 +105,7 @@ def removeUser():
 
     x.start()
 
-    return 
+    return "Processing your request..."
 
     
 def removeUserAction(slack_request):
