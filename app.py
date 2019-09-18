@@ -140,12 +140,11 @@ def removeUserAction(slack_request):
         channel=channel_id,
         blocks=[
             {
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": "Chew choo! @scott started a train to Deli Board at 11:30. Will you join?"
-                }, 
+                "text": "Response to slash command",
                 "attachments": [
+                    {
+                        "text": "Would you like to remove the user from the organization?"
+                    },
                     {
                         "callback_id": "github-manager-test",
                         "actions": [
