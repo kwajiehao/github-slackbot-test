@@ -35,6 +35,7 @@ def verification():
 
     payload = request.get_json()
 
+    # return "HTTP 200 OK Content-type: application/json " + '{"challenge":"' + payload['challenge'] + '"}'
     return "HTTP 200 OK Content-type: text/plain " + payload['challenge']
 
 
@@ -71,7 +72,7 @@ def removeUser():
 
     x.start()
     
-    return {"Your mom"}
+    return "HTTP 200 OK Content-type: text/plain" 
 
     
 def removeUserAction(slack_request):
