@@ -4,6 +4,7 @@ import os
 import sys
 import time
 import slack
+import requests
 from slackeventsapi import SlackEventAdapter
 import threading
 
@@ -156,7 +157,7 @@ def removeUserAction(slack_request):
                             "text": "Yes",
                             "emoji": True
                         },
-                        "action_id": 'option-yes',
+                        "action_id": 'add-or-remove:yes',
                         "value": 'yes'
                     },
                     {
@@ -166,7 +167,7 @@ def removeUserAction(slack_request):
                             "text": "No",
                             "emoji": True
                         },
-                        "action_id": 'option-no',
+                        "action_id": 'add-or-remove:no',
                         "value": 'no'
                     }
                 ]
@@ -176,10 +177,38 @@ def removeUserAction(slack_request):
 
 @app.route('/interaction', methods=['POST'])
 def interactionTest():
-    slack_request = request
-    print(slack_request.headers)
-    print(slack_request.form)
+    # check the request components
+    slack_request = request.form
+    print(request.headers)
+    print(slack_request)
+
+    x = threading.Thread(
+            target=removeUserAction,
+            args=(slack_request, )
+        )
+
+    x.start()
     return 'test'
+
+def removeUserAction(slack_request):
+    payload = slack_request['payload']
+    responseUrl = payload['response_url']
+    actionValue = payload['actions']['value']
+    action = payload['actions']['action_id'].split(':')[0]
+
+    if action == 'add-or-remove':
+        if actionValue == 'yes':
+            # remove user
+            payload = {
+                "text": "The user has been removed"
+            }
+        elif actionValue == 'no':
+            # do not remove user
+            payload = {
+                "text": "The user has NOT been removed"
+            }
+        r = requests.post(responseUrl, json=payload)
+        print ('response from server:',r.text)
 
 if __name__ == '__main__':
     app.run(debug=True, port=PORT)
