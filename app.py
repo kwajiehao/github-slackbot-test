@@ -1,7 +1,10 @@
 from flask import Flask, request
 import re
 import os
+import sys
+import time
 import slack
+from slackeventsapi import SlackEventAdapter
 import threading
 
 app = Flask(__name__)
@@ -10,6 +13,14 @@ app = Flask(__name__)
 slack_token = os.environ["BOT_SLACK_OAUTH_ACCESS"]
 client = slack.WebClient(token=slack_token)
 
+# signing secret
+slack_secret =  os.environ["SLACK_SECRET"]
+
+# event handler for the events api
+# initialize with a secret - this is also to verify that requests come from slack
+slack_events = SlackEventAdapter(slack_secret, "/slack/events")
+
+# set port
 PORT = 4390
 
 
@@ -17,9 +28,11 @@ PORT = 4390
 def homepage():
     return "Howdy hacker!"
 
-@app.route('/verify')
+@app.route('/verify', methods=['POST'])
 def verification():
-    return request.form['challenge']
+    print(request.body())
+    sys.stdout.flush()
+    return request.body()
 
 
 @app.route('/github-manager-test', methods=['POST'])
@@ -55,7 +68,7 @@ def removeUser():
 
     x.start()
     
-    return "Your mom"
+    return {"Your mom"}
 
     
 def removeUserAction(slack_request):
