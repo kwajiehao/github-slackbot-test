@@ -48,7 +48,7 @@ def verification():
             args=(slack_request,)
         )
 
-    # x.start()
+    x.start()
 
     return "We are processing your request..."
 
@@ -60,6 +60,8 @@ def test(slack_request):
     client.chat_postMessage(
         channel=channel_id,
         text="Hello from your app! :tada:")
+    
+    return
 
     
 
