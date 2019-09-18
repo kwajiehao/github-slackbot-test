@@ -44,16 +44,15 @@ def verification():
 
     # starting a new thread for doing the actual processing 
     # because slack requires a response within 3000ms   
-    # x = threading.Thread(
-    #         target=test,
-    #         args=(slack_request,)
-    #     )
-    # x.start()
+    x = threading.Thread(
+            target=test,
+            args=(slack_request,)
+        )
+    x.start()
 
-    print("We are processing your request...")
     print(slack_request)
 
-    return 
+    return "We are processing your request..."
 
     
 def test(slack_request):
