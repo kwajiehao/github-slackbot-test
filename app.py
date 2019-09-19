@@ -6,6 +6,7 @@ import json
 import time
 import slack
 import requests
+import logging
 from slackeventsapi import SlackEventAdapter
 import threading
 
@@ -28,22 +29,23 @@ PORT = 4390
 
 @app.route('/')
 def homepage():
+    app.logger.info('Hi logs') 
     return "Howdy hacker!"
 
+# this is our route for events api
 @app.route('/verify', methods=['POST'])
 def verification():
     
     # Used for verification
-    #print(request.headers)
-    #print(request.get_json())
-    #payload = request.get_json()
-    ## return "HTTP 200 OK Content-type: application/json " + '{"challenge":"' + payload['challenge'] + '"}'
+    # print(request.headers)
+    # print(request.get_json())
+    # payload = request.get_json()
+    # return "HTTP 200 OK Content-type: application/json " + '{"challenge":"' + payload['challenge'] + '"}'
     #return "HTTP 200 OK Content-type: text/plain " + payload['challenge']
 
     # get the full request from Slack
     slack_request = request.get_json()
     channel_id =  slack_request['event']['channel']
-
     # starting a new thread for doing the actual processing 
     # because slack requires a response within 3000ms   
     x = threading.Thread(
@@ -51,18 +53,15 @@ def verification():
             args=(slack_request,)
         )
     x.start()
-
     y = threading.Thread(
             target=responseToUser,
             args=(slack_request,)
         )
     y.start()
 
-    print(slack_request)
-
+    # print(slack_request)
     return "We are processing your request..."
 
-    
 def test(slack_request):
     # test using the slack client's methods
     channel_id =  slack_request['event']['channel']
@@ -120,20 +119,25 @@ def addUser():
     
 @app.route('/remove-user', methods=['POST'])
 def removeUser():    
-    # get the full request from Slack
-    slack_request = request.form
-    print(request.form)
+    try:
+        # get the full request from Slack
+        slack_request = request.form
+        print(request.form)
 
-    # starting a new thread for doing the actual processing 
-    # because slack requires a response within 3000ms   
-    x = threading.Thread(
-            target=removeUserAction,
-            args=(slack_request, )
-        )
+        # starting a new thread for doing the actual processing 
+        # because slack requires a response within 3000ms   
+        x = threading.Thread(
+                target=removeUserAction,
+                args=(slack_request, )
+            )
 
-    x.start()
+        x.start()
 
-    return "Processing your request..."
+        return "Processing your request..."
+
+    except Exception as e:
+        # test logs
+        app.logger.info(e) 
 
     
 def removeUserAction(slack_request):
@@ -147,7 +151,7 @@ def removeUserAction(slack_request):
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": "Chew choo! @scott started a train to Deli Board at 11:30. Will you join?"
+                    "text": "Do you want to remove this user?"
                 }
             },
             {
@@ -177,7 +181,7 @@ def removeUserAction(slack_request):
             }
         ])
 
-
+# this is our request url for interactive components
 @app.route('/interaction', methods=['POST'])
 def interactionTest():
     # check the request components
@@ -194,7 +198,7 @@ def interactionTest():
 
 def removeUserAction2(slack_request):
     payload = json.loads(slack_request['payload'])
-    print(payload)
+    # print(payload)
     responseUrl = payload['response_url']
     actionValue = payload['actions'][0]['value']
     action = payload['actions'][0]['action_id'].split(':')[0]   
