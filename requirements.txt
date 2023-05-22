@@ -1,7 +1,7 @@
 dateparser==0.7.0
 Flask==1.0.2
 gunicorn==19.9.0
-requests==2.20.0
+requests==2.31.0
 virtualenv==16.0.0
 slackclient==2.1.0
 slackeventsapi===2.1.0
